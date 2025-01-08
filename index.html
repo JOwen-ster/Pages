@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paint Splatter Background</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+
+        .paint-splatter {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            fill: rgba(0, 0, 0, 0.2);
+            transform: rotate(calc(var(--angle, 0) * 1deg)) scale(var(--scale, 1));
+        }
+    </style>
+</head>
+<body>
+    <script>
+        const splatterCount = 30; // Adjust the number of paint splatters
+        const colors = ['#FF5733', '#33FF57', '#5733FF', '#FFD700', '#00FFFF'];
+
+        const createSplatterSVG = () => {
+            const svgNS = "http://www.w3.org/2000/svg";
+            const svg = document.createElementNS(svgNS, "svg");
+            svg.setAttribute("viewBox", "0 0 100 100");
+            svg.setAttribute("class", "paint-splatter");
+
+            const path = document.createElementNS(svgNS, "path");
+            path.setAttribute(
+                "d",
+                "M50,5 C65,5 75,15 85,30 C95,45 95,55 85,70 C75,85 65,95 50,95 C35,95 25,85 15,70 C5,55 5,45 15,30 C25,15 35,5 50,5 Z"
+            );
+            svg.appendChild(path);
+
+            return svg;
+        };
+
+        for (let i = 0; i < splatterCount; i++) {
+            const splatter = createSplatterSVG();
+
+            // Randomize color
+            splatter.style.fill = colors[Math.floor(Math.random() * colors.length)];
+
+            // Randomize position
+            const x = Math.random() * window.innerWidth;
+            const y = Math.random() * window.innerHeight;
+            splatter.style.left = `${x}px`;
+            splatter.style.top = `${y}px`;
+
+            // Randomize rotation and scale
+            splatter.style.setProperty('--angle', Math.random() * 360);
+            splatter.style.setProperty('--scale', 0.5 + Math.random());
+
+            document.body.appendChild(splatter);
+        }
+
+        window.addEventListener('resize', () => {
+            document.body.innerHTML = '';
+            location.reload();
+        });
+    </script>
+</body>
+</html>
