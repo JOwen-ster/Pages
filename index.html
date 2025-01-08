@@ -4,17 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Paint Splatter Background</title>
-
-    <iframe width="420" height="315"
-    src="https://www.youtube.com/embed/46wn9FS6fY8">
-    </iframe>
-    
     <style>
         body {
             margin: 0;
             overflow: hidden;
             height: 100vh;
             background-color: #f4f4f4;
+            position: relative;
+        }
+
+        iframe {
+            position: relative;
+            z-index: 10;
+            display: block;
+            margin: 50px auto;
         }
 
         .paint-splatter {
@@ -23,10 +26,14 @@
             height: 100px;
             fill: rgba(0, 0, 0, 0.2);
             transform: rotate(calc(var(--angle, 0) * 1deg)) scale(var(--scale, 1));
+            z-index: 1;
         }
     </style>
 </head>
 <body>
+    <iframe width="420" height="315"
+    src="https://www.youtube.com/embed/46wn9FS6fY8">
+    </iframe>
     <script>
         const splatterCount = 30; // Adjust the number of paint splatters
         const colors = ['#FF5733', '#33FF57', '#5733FF', '#FFD700', '#00FFFF'];
